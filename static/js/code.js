@@ -1,17 +1,23 @@
 function send_data(image) {
+  // clear div block
+  var items = Array.from(document.getElementsByClassName("color"));
+  items.forEach(function(div_color) {
+    div_color.style.background = 'white';
+  });
+
   var request = new XMLHttpRequest();
 
   request.onload = function () {
      var status = request.status;
      var data = JSON.parse(request.responseText);
      if (data.status == 'ok') {
-        var items = Array.from(document.getElementsByClassName("color"));
+        // set image main colors
         items.forEach(function(div_color, i) {
-            console.log( data.colors[i] );
             div_color.style.background = 'rgb(' + data.colors[i] + ')';
         });
      }
   }
+  
   request.open('post', '/', true);
 
   var formData = new FormData();
