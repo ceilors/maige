@@ -1,0 +1,38 @@
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+div.content {
+  margin: 10px;
+  padding: 5px;
+}
+
+div.image, div.info {
+  text-align: center;
+  padding: 5px;
+  display: block;
+}
+
+img.result_image {
+  margin: 0 auto;
+  display: block;
+  max-width: 75%;
+}
+
+div.color {
+  margin: 5px;
+  border: 2px solid black;
+  padding: 25px;
+  display: inline-block;
+}
+
+p {
+  margin: 5px;
+  padding: 10px;
+  display: inline-block;
+  font-weight: 100;
+  font-size: x-large;
+  font-size: 18pt;
+  text-align: center;
+  vertical-align: top;
+}

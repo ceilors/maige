@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="info">
+  <p>Основные цвета</p>
+  <div class="color" style="background-color: white"></div>
+  <div class="color" style="background-color: white"></div>
+  <div class="color" style="background-color: white"></div>
+  <div class="color" style="background-color: white"></div>
+  <div class="color" style="background-color: white"></div>
+  <div class="color" style="background-color: white"></div>
+</div>
+<div class="image">
+  <input type="file" onchange="select_file(event);" class="upload_button" style="visibility: hidden;">
+  <img src="{{ url_for('static', filename='img/upload.png') }}" class="result_image" onclick="document.getElementsByClassName('upload_button')[0].click();">
+</div>
+{% endblock %}
