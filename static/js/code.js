@@ -11,18 +11,21 @@ function resize_image(img) {
   var height = img.naturalHeight;
   var divider = gcd(width, height);
 
+  // calc new image size
   width = width / divider;
   height = height / divider;
-  if (width * height < 7) {
+  if (width * height < 50) {
     width *= 2;
     height *= 2;
   }
 
+  // resize image
   var canvas = document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
   canvas.getContext('2d').drawImage(img, 0, 0, width, height);
 
+  // get base64 data
   return canvas.toDataURL('image/png');
 }
 
@@ -38,17 +41,21 @@ function send_data(image) {
      var status = request.status;
      var data = JSON.parse(request.responseText);
      if (data.status == 'ok') {
-        // set image main colors
+        // set main colors in div blocks
         items.forEach(function(div_color, i) {
             div_color.style.background = 'rgb(' + data.colors[i] + ')';
         });
      }
   }
+
+  // check for using hsv pallete
+  var is_hsv_checked = document.getElementsByClassName("hsv_pallete")[0].checked;
   
   request.open('post', '/', true);
 
   var formData = new FormData();
   formData.append('file', image);
+  formData.append('hsv', is_hsv_checked);
 
   request.send(formData);
 }

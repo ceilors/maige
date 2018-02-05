@@ -11,8 +11,9 @@ def index():
     if request.method == 'POST':
         if request.form:
             _, b64data = request.form['file'].split(',')
+            use_hsv = True if request.form['hsv'].lower() == 'true' else False
             image = BytesIO(decodebytes(b64data.encode()))
-            colors = get_main_colors(image, use_hsv=True)
+            colors = get_main_colors(image, use_hsv=use_hsv)
             return jsonify({'status': 'ok', 'colors': colors})
         else:
             return jsonify({'status': 'file not uploaded!'})
