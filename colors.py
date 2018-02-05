@@ -1,5 +1,4 @@
 from sklearn.cluster import KMeans
-from fractions import gcd
 from PIL import Image
 import colorsys as cs
 import math
@@ -7,12 +6,6 @@ import math
 
 def get_main_colors(filename, n_colors=7, use_hsv=True):
     img = Image.open(filename).convert('RGB')
-    div = gcd(img.size[0], img.size[1])
-    new_size = (img.size[0] // div, img.size[1] // div)
-    if new_size[0] * new_size[1] < n_colors:
-        new_size[0] *= 2
-        new_size[1] *= 2
-    img = img.resize(new_size, Image.NEAREST)
 
     if use_hsv:
         x_data = [cs.rgb_to_hsv(*x) for x in set(img.getdata())]

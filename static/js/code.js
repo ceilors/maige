@@ -1,9 +1,41 @@
+function gcd(a, b) {
+    if (b == 0) {
+        return a;
+    } else {
+        return gcd(b, a % b);
+    }
+}
+
+function resize_image() {
+  var img = document.getElementsByClassName("result_image")[0];
+  var width = img.naturalWidth;
+  var height = img.naturalHeight;
+  var divider = gcd(width, height);
+
+  width = width / divider;
+  height = height / divider;
+  if (width * height < 7) {
+    width *= 2;
+    height *= 2;
+  }
+
+  var canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+
+  return canvas.toDataURL('image/png');
+}
+
 function send_data(image) {
   // clear div block
   var items = Array.from(document.getElementsByClassName("color"));
   items.forEach(function(div_color) {
     div_color.style.background = 'white';
   });
+
+  // resize loaded image
+  image = resize_image(image);
 
   var request = new XMLHttpRequest();
 
@@ -35,9 +67,9 @@ function select_file(event) {
 
   reader.onload = function(event) {
     imgtag.src = event.target.result;
+
+    send_data(selectedFile);
   };
 
   reader.readAsDataURL(selectedFile);
-
-  send_data(selectedFile);
 }
