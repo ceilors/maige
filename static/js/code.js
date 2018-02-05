@@ -6,8 +6,7 @@ function gcd(a, b) {
     }
 }
 
-function resize_image() {
-  var img = document.getElementsByClassName("result_image")[0];
+function resize_image(img) {
   var width = img.naturalWidth;
   var height = img.naturalHeight;
   var divider = gcd(width, height);
@@ -28,11 +27,7 @@ function resize_image() {
 }
 
 function send_data(image) {
-  // clear div block
   var items = Array.from(document.getElementsByClassName("color"));
-  items.forEach(function(div_color) {
-    div_color.style.background = 'white';
-  });
 
   // resize loaded image
   image = resize_image(image);
@@ -68,7 +63,14 @@ function select_file(event) {
   reader.onload = function(event) {
     imgtag.src = event.target.result;
 
-    send_data(selectedFile);
+    // clear div block
+    var items = Array.from(document.getElementsByClassName("color"));
+    items.forEach(function(div_color) {
+      div_color.style.background = 'white';
+    });
+
+    // send image to server with timeout
+    setTimeout(function() { send_data(imgtag); }, 10);
   };
 
   reader.readAsDataURL(selectedFile);
